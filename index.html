@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christina Restrepo Nazar, Ph.D.</title>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #7b4f9e;
+      --accent-light: #f0eaf6;
+      --text: #333;
+      --light: #f7f7f7;
+      --border: #ddd;
+      --nav-width: 220px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--text);
+      background: #fff;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar nav ── */
+    nav {
+      width: var(--nav-width);
+      min-width: var(--nav-width);
+      background: var(--primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 2rem 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+
+    nav .nav-name {
+      font-size: .85rem;
+      font-weight: bold;
+      padding: 0 1.25rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      margin-bottom: .75rem;
+      line-height: 1.4;
+    }
+
+    nav a {
+      display: block;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: .78rem;
+      padding: .45rem 1.25rem;
+      transition: background .15s, color .15s;
+    }
+
+    nav a:hover, nav a.active {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+    }
+
+    /* ── Main content ── */
+    main {
+      flex: 1;
+      max-width: 860px;
+      padding: 3rem 3.5rem;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: .35rem;
+    }
+
+    header .contact {
+      font-family: 'Arial', sans-serif;
+      font-size: .88rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    header .contact a { color: var(--accent); text-decoration: none; }
+    header .contact a:hover { text-decoration: underline; }
+
+    header .bio {
+      font-size: .95rem;
+      line-height: 1.75;
+      color: #444;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 1.5rem;
+    }
+
+    section h2 {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: .4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    section h3 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin: 1.25rem 0 .3rem;
+    }
+
+    /* Entry blocks */
+    .entry {
+      margin-bottom: 1.1rem;
+      padding-left: .9rem;
+      border-left: 3px solid var(--accent-light);
+    }
+
+    .entry .title {
+      font-weight: bold;
+      font-size: .95rem;
+    }
+
+    .entry .meta {
+      font-family: 'Arial', sans-serif;
+      font-size: .8rem;
+      color: #666;
+      margin: .15rem 0 .35rem;
+    }
+
+    .entry p {
+      font-size: .9rem;
+      line-height: 1.65;
+      color: #444;
+    }
+
+    /* Award/list items */
+    .award-list, .plain-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .award-list li {
+      display: flex;
+      gap: .75rem;
+      padding: .35rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    .award-list li:last-child { border-bottom: none; }
+
+    .award-list .year {
+      min-width: 42px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      color: var(--accent);
+      font-size: .82rem;
+      padding-top: .1rem;
+    }
+
+    .plain-list li {
+      padding: .28rem 0;
+      font-size: .88rem;
+      line-height: 1.55;
+      border-bottom: 1px solid var(--border);
+    }
+    .plain-list li:last-child { border-bottom: none; }
+
+    /* Publication entries */
+    .pub {
+      font-size: .88rem;
+      line-height: 1.7;
+      margin-bottom: .85rem;
+      padding-left: 1rem;
+      text-indent: -1rem;
+      color: #444;
+    }
+
+    .pub .label {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 3px;
+      font-size: .7rem;
+      font-family: 'Arial', sans-serif;
+      padding: .1rem .35rem;
+      margin-right: .3rem;
+      vertical-align: middle;
+    }
+
+    /* Tag pills */
+    .pill-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .5rem; }
+    .pill {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 99px;
+      font-family: 'Arial', sans-serif;
+      font-size: .75rem;
+      padding: .25rem .75rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 740px) {
+      body { flex-direction: column; }
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: .75rem;
+        gap: 0;
+      }
+      nav .nav-name { display: none; }
+      nav a { font-size: .72rem; padding: .3rem .6rem; }
+      main { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="nav-name">Christina Restrepo Nazar, Ph.D.</div>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#appointments">Appointments</a>
+  <a href="#honors">Honors &amp; Awards</a>
+  <a href="#teaching">Teaching</a>
+  <a href="#advising">Advising</a>
+  <a href="#funding">Funding</a>
+  <a href="#publications">Publications</a>
+  <a href="#presentations">Presentations</a>
+  <a href="#research">Research Experience</a>
+  <a href="#curriculum">Curriculum Design</a>
+  <a href="#editorial">Editorial</a>
+  <a href="#service">Service &amp; Outreach</a>
+  <a href="#consulting">Consulting</a>
+  <a href="#memberships">Memberships</a>
+</nav>
+
+<main>
+
+  <!-- ── Header ── -->
+  <header id="about">
+    <h1>Christina Restrepo Nazar, Ph.D.</h1>
+    <div class="contact">
+      <a href="mailto:crn@ucf.edu">crn@ucf.edu</a> &nbsp;|&nbsp;
+      407.369.2772 &nbsp;|&nbsp;
+      <a href="https://christinarestreponazar.com" target="_blank">christinarestreponazar.com</a>
+    </div>
+    <p class="bio">
+      Dr. Christina Restrepo Nazar is a researcher whose scholarship sits at the intersection of science education, digital humanities, and AI studies, animated by the ways in which love, devotion, and humanistic understanding shape the conditions for genuine learning and transformation. Drawing on her formation as a science educator, her Catholic roots, and her current doctoral work in the Texts &amp; Technology Ph.D. at the University of Central Florida (UCF), she approaches educational questions as fundamentally philosophical: What does it mean to know? How do human beings come to care about ideas? And how might technologies either open or foreclose the contemplative dimensions of learning?
+    </p>
+    <br>
+    <p class="bio">
+      Her research spans four interconnected areas: the philosophical foundations of teacher preparation; STEM learning environments that cultivate genuine intellectual devotion; digital and multimedia learning tools as sites of philosophical inquiry; and the ethical and cultural implications of artificial intelligence in lifelong learning. Her scholarship is guided by the conviction that rigorous philosophical inquiry and contemplative ways of knowing together constitute the most honest response to the humanistic challenges of our technological moment.
+    </p>
+  </header>
+
+  <!-- ── Education ── -->
+  <section id="education">
+    <h2>Education</h2>
+
+    <div class="entry">
+      <div class="title">Ph.D. in Texts &amp; Technology</div>
+      <div class="meta">Specialization: Digital Humanities (in Artificial Intelligence) &nbsp;·&nbsp; May 2025–Present</div>
+      <p>University of Central Florida, Orlando, FL</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Ph.D. in Curriculum, Instruction, and Teacher Education (CITE)</div>
+      <div class="meta">Specializations: Science Education &amp; Qualitative Research Methods &nbsp;·&nbsp; December 2018</div>
+      <p>Michigan State University, East Lansing, MI<br>
+      <em>Dissertation:</em> Youth as Teacher Educators: Supporting Preservice Teachers in Developing Youth-Centered, Equity-Oriented Science Teaching Practices<br>
+      <strong>AACTE Dissertation of the Year Award, 2020</strong></p>
+    </div>
+
+    <div class="entry">
+      <div class="title">M.Ed. in Teacher Leadership</div>
+      <div class="meta">Specialization in Science Education &nbsp;·&nbsp; May 2013</div>
+      <p>University of Central Florida, Orlando, FL</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">B.S. Honors in Science Education: Biology</div>
+      <div class="meta">Minor: Hospitality Management &nbsp;·&nbsp; May 2011</div>
+      <p>University of Central Florida, Orlando, FL<br>
+      Teaching Certification: Biology 6–12 (Florida)<br>
+      <em>Undergraduate Thesis:</em> UCF Upward Bound Program: Promoting First Generation in College, Low Income, and Multicultural Student STEM College Success</p>
+    </div>
+  </section>
+
+  <!-- ── Professional Appointments ── -->
+  <section id="appointments">
+    <h2>Professional Appointments</h2>
+    <ul class="award-list">
+      <li><span class="year">2025–</span><span>Graduate Research Associate, Center for Humanities and Digital Research (CHDR), College of Arts and Humanities, University of Central Florida</span></li>
+      <li><span class="year">2025</span><span>Curriculum and Instruction Specialist &amp; Administrator, STEAM, Unlocking Children's Potential of Central Florida (UCP of Central Florida)</span></li>
+      <li><span class="year">2023–24</span><span>Biology Teacher, Lake Nona High School, Orange County Public Schools</span></li>
+      <li><span class="year">2018–23</span><span>Assistant Professor (tenure-track), Division of Curriculum &amp; Instruction, California State University, Los Angeles</span></li>
+      <li><span class="year">2013–18</span><span>Graduate Research Assistant, Department of Teacher Education, Michigan State University</span></li>
+      <li><span class="year">2011–12</span><span>Education Research Assistant, Educational Outreach, Office of Strategic Initiatives, Library of Congress, Washington, DC</span></li>
+      <li><span class="year">2007–13</span><span>Administrative Services Assistant, Rosen College of Hospitality Management, University of Central Florida</span></li>
+    </ul>
+  </section>
+
+  <!-- ── Honors & Awards ── -->
+  <section id="honors">
+    <h2>Honors &amp; Awards</h2>
+    <ul class="award-list">
+      <li><span class="year">2026</span><span>Cartwright Family Research Fellowship, University of Central Florida</span></li>
+      <li><span class="year">2025</span><span>Graduate Dean's Fellowship, University of Central Florida</span></li>
+      <li><span class="year">2025</span><span>Summer Graduate Research Fellowship, University of Central Florida</span></li>
+      <li><span class="year">2023</span><span>Aguila de Oro Teaching Award, Chicanx Latinx University Association (CLUA)</span></li>
+      <li><span class="year">2022</span><span>California State University, Los Angeles Creative Leave Grant RSCA</span></li>
+      <li><span class="year">2022</span><span>CSULA Poetry in the Disciplines Fellow</span></li>
+      <li><span class="year">2021</span><span>SECRET Campaign for Science Education Equity and Social Justice</span></li>
+      <li><span class="year">2021–22</span><span>California State University System-wide STEM AGEP Alliance participant</span></li>
+      <li><span class="year">2021</span><span>California State University, Los Angeles Creative Leave Grant RSCA</span></li>
+      <li><span class="year">2020</span><span>American Association of Colleges for Teacher Education (AACTE) Outstanding Dissertation Award</span></li>
+      <li><span class="year">2020</span><span>California State University, Los Angeles Creative Leave Grant RSCA</span></li>
+      <li><span class="year">2019</span><span>California State University, Los Angeles Creative Leave Grant RSCA</span></li>
+      <li><span class="year">2018</span><span>California State University, Los Angeles, Faculty Research Learning Fellow, RSCA</span></li>
+      <li><span class="year">2017</span><span>Michigan State University, Residential College of Arts and Humanities Graduate Student Fellow</span></li>
+      <li><span class="year">2017</span><span>Jhumki Basu Scholarship, Equity and Ethics Committee, National Association for Research in Science Teaching</span></li>
+      <li><span class="year">2017</span><span>Sandra K. Abell Institute for Doctoral Studies in Science Education (SKAIDS)</span></li>
+      <li><span class="year">2017</span><span>Division K American Educational Research Association Pre-Conference Fellow</span></li>
+      <li><span class="year">2017</span><span>Critical Participatory Methodologies Fellowship, Equity and Ethics Committee, NARST</span></li>
+      <li><span class="year">2017</span><span>Graduate Student Leader, Fellowship to Enhance Global Understanding to Cuba</span></li>
+      <li><span class="year">2016</span><span>AERA Making and Learning Graduate Fellow, University of Pittsburgh</span></li>
+      <li><span class="year">2016</span><span>Michigan Campus Compact and Michigan State University Heart and Soul Awardee</span></li>
+      <li><span class="year">2016</span><span>Michigan State University Student Leadership Academy Fellow</span></li>
+      <li><span class="year">2015</span><span>Teacher Education Research Enhancement Fellowship ($1,400)</span></li>
+      <li><span class="year">2015</span><span>Emerging Engagement Scholars Fellow, Penn State University</span></li>
+      <li><span class="year">2015</span><span>Fellowship to Enhance Global Understanding of Cuba</span></li>
+      <li><span class="year">2015</span><span>Professional Development Fellowship, MSU College of Education ($500)</span></li>
+      <li><span class="year">2015</span><span>Summer Research Renewable Fellow, MSU College of Education ($12,000)</span></li>
+      <li><span class="year">2013</span><span>MSU University Distinguished Fellow ($25,000/year for doctoral studies)</span></li>
+      <li><span class="year">2012</span><span>National Science Foundation: Graduate Research Fellowship</span></li>
+      <li><span class="year">2012, 10</span><span>Institute for Recruitment of Teachers, Phillips Academy Andover</span></li>
+      <li><span class="year">2011</span><span>McNair Graduate Research Fellowship, University of Central Florida ($10,000 for two years)</span></li>
+      <li><span class="year">2011</span><span>Hispanic Association of Colleges and Universities (HACU) National Internship Fellow</span></li>
+      <li><span class="year">2011</span><span>Finalist, Order of Pegasus, University of Central Florida</span></li>
+      <li><span class="year">2011</span><span>Black Faculty and Staff Mentee of the Year Award, University of Central Florida</span></li>
+      <li><span class="year">2009, 11</span><span>President's List, University of Central Florida</span></li>
+      <li><span class="year">2009</span><span>Hispanic Heritage Scholarship Fund of Metro Orlando ($5,000 for undergraduate studies)</span></li>
+      <li><span class="year">2009</span><span>Summer Research Opportunities Program at The Ohio State University</span></li>
+      <li><span class="year">2009</span><span>Research and Mentoring Program Scholar ($2,000)</span></li>
+      <li><span class="year">2009</span><span>McNair Post-baccalaureate Achievement Fellow</span></li>
+      <li><span class="year">2009</span><span>AERA Undergraduate Research Fellow</span></li>
+      <li><span class="year">2007</span><span>Gates Millennium Scholar</span></li>
+      <li><span class="year">2007</span><span>Best Buy Scholar ($1,500)</span></li>
+      <li><span class="year">2007</span><span>Florida Bright Futures Scholar</span></li>
+    </ul>
+  </section>
+
+  <!-- ── Teaching ── -->
+  <section id="teaching">
+    <h2>Teaching &amp; Related Experience</h2>
+
+    <h3>University Courses — California State University, Los Angeles (2018–2023)</h3>
+    <ul class="plain-list">
+      <li>EDEL 4180: Elementary Science Methods (Undergraduate and Post-Baccalaureate Multiple Subject Credential)</li>
+      <li>EDSE 4212C: Secondary Science Methods (Undergraduate and Post-Baccalaureate Single Subject Credential)</li>
+      <li>EDSE 5101: Characteristics and Needs of Secondary Students, Families and Communities</li>
+      <li>EDCI 5570: Research and Pedagogy for the Bilingual Learner: Exploring Cultural Impact</li>
+      <li>University Supervision (Internship, Multiple Subject and Single Subject Credential in Biology, Chemistry, and Physics)</li>
+    </ul>
+
+    <h3>University Courses — Michigan State University (2013–2018)</h3>
+    <ul class="plain-list">
+      <li>TE 407: Teaching Secondary Science</li>
+      <li>TE 403: Teaching Elementary Science</li>
+      <li>TE 408: Crafting the Teaching Practice</li>
+      <li>TE 909: Community-Engaged Scholarship and Activism in Teaching and Teacher Education (Ph.D. course — co-taught with doctoral advisor)</li>
+    </ul>
+
+    <h3>K–12 Teaching Experience</h3>
+    <ul class="plain-list">
+      <li>Science/Engineering Tutor: Sheridan Rd. STEM (Lansing, MI)</li>
+      <li>After School Science/Engineering Teacher: Boys and Girls Club of Lansing (Lansing, MI)</li>
+      <li>Biology Teaching Assistant: Sexton High School (Lansing, MI)</li>
+      <li>Chemistry and Algebra Teacher: Upward Bound Program at University High School (Orlando, FL)</li>
+      <li>Spanish, Biology, and Chemistry Teacher: Colonial High School (Orlando, FL)</li>
+      <li>ADDitions Teacher: Three Points Elementary School (Orlando, FL)</li>
+      <li>Teaching Assistant: United Cerebral Palsy Bailes (Orlando, FL)</li>
+      <li>Junior Achievement Consultant: Arbor Middle School (Orlando, FL)</li>
+    </ul>
+  </section>
+
+  <!-- ── Advising ── -->
+  <section id="advising">
+    <h2>Student Advising</h2>
+
+    <h3>Doctoral Students (Dissertation Committees)</h3>
+    <ul class="plain-list">
+      <li>Phone Noe, Ed.D. — Graduated August 2021, focus on Mathematics Education</li>
+      <li>Alexandra Collyer, Ed.D. — Graduated August 2022, focus on Science Education</li>
+    </ul>
+
+    <h3>Master's Students (Thesis Chair)</h3>
+    <ul class="plain-list">
+      <li>Sara Valdez — graduated May 2020 (M.A. STEM Integration)</li>
+      <li>Sarah Lloyd — graduated May 2020 (comprehensive exam option)</li>
+    </ul>
+
+    <h3>Master's Students (Thesis Committees)</h3>
+    <ul class="plain-list">
+      <li>Joel Lobos — defended May 2019 (M.A. Educational Foundations)</li>
+      <li>Jade Calagawan (Research Assistant)</li>
+    </ul>
+
+    <h3>Undergraduate Research Advising</h3>
+    <ul class="plain-list">
+      <li>Lizette Carrillo (graduated May 2019; M.A. STEM Integration 2020–2022)</li>
+      <li>Daniel Coreas (Single Subject credential in Social Studies)</li>
+      <li>Marlon Diaz (B.S. in Psychology)</li>
+      <li>Stive Bao Trinh (Single Subject credential)</li>
+      <li>Karen Alvarez (Multiple Subject credential and B.A. in Urban Learning)</li>
+    </ul>
+
+    <h3>K–12 Student Advising</h3>
+    <ul class="plain-list">
+      <li>Adiana Latham (Lansing Community College)</li>
+      <li>Annescia Rollins (Michigan Tech University)</li>
+      <li>Caleb Morris (Michigan State University)</li>
+    </ul>
+  </section>
+
+  <!-- ── Funding ── -->
+  <section id="funding">
+    <h2>Funding: Grants &amp; Fellowships</h2>
+
+    <h3>Awarded</h3>
+    <div class="entry">
+      <div class="title">ECO-STEM: Transforming STEM Education Using an Asset-Based Ecosystem Model</div>
+      <div class="meta">Senior Researcher (PI: Gustavo Menezes) &nbsp;·&nbsp; National Science Foundation &nbsp;·&nbsp; $1,949,924 &nbsp;·&nbsp; 8/2020–8/2024</div>
+    </div>
+    <div class="entry">
+      <div class="title">STEPS 4 Equity</div>
+      <div class="meta">Principal Investigator (Co-PI: Jamie Marsh) &nbsp;·&nbsp; Charter College of Education &nbsp;·&nbsp; $12,000 &nbsp;·&nbsp; 8/2020–8/2022</div>
+    </div>
+    <div class="entry">
+      <div class="title">Literacy + STEM</div>
+      <div class="meta">Principal Investigator (Co-PIs: Jamie Marsh, KiMi Wilson, Socorro Orozco) &nbsp;·&nbsp; Special Projects Charter COE &nbsp;·&nbsp; $5,000 &nbsp;·&nbsp; 8/2019–8/2020 (Completed)</div>
+    </div>
+    <div class="entry">
+      <div class="title">PST(s) Developing Approximations of Practice</div>
+      <div class="meta">Principal Investigator &nbsp;·&nbsp; Cal State LA RSCA &nbsp;·&nbsp; 5/2020–8/2021 (Completed)</div>
+    </div>
+    <div class="entry">
+      <div class="title">Developing Youth-Centered, Equity-Oriented Teaching Practices</div>
+      <div class="meta">Principal Investigator &nbsp;·&nbsp; Cal State LA RSCA &nbsp;·&nbsp; 5/2019–8/2020 (Completed)</div>
+    </div>
+    <div class="entry">
+      <div class="title">Los Angeles Urban Teacher Residency (LAUTR)</div>
+      <div class="meta">Principal Investigator: A. Dee Williams &nbsp;·&nbsp; Cal State LA &nbsp;·&nbsp; 8/2019–8/2021 (Completed)</div>
+    </div>
+    <div class="entry">
+      <div class="title">Cradle to Careers: A Youth Co-Researcher Study in Battle Creek, MI</div>
+      <div class="meta">Consultant (PI: Chezare Warren; Co-PI: Joanne E. Marciano) &nbsp;·&nbsp; NYU Metro Center &nbsp;·&nbsp; $50,000 (Completed)</div>
+    </div>
+    <div class="entry">
+      <div class="title">Spartan Woot Wall Day! — Be Spartan Green Student Project Fund</div>
+      <div class="meta">Principal Investigator (Co-PI: Katie Schenkel) &nbsp;·&nbsp; $5,000 &nbsp;·&nbsp; 1/2017–12/2018 (Completed)</div>
+    </div>
+
+    <h3>Not Funded</h3>
+    <div class="entry">
+      <div class="title">Broadening Engineering through Training and Early Research (BETTER)</div>
+      <div class="meta">Collaborator (PIs: Winny Dong, Marianne Smith) &nbsp;·&nbsp; Cal Poly Pomona / NSF</div>
+    </div>
+    <div class="entry">
+      <div class="title">Supporting Use of Simulations in STEM and ICT Pathway Programs (SIM-STEM)</div>
+      <div class="meta">Principal Investigator (Co-PIs: Kimberly Persiani, Ravy Lao) &nbsp;·&nbsp; NSF &nbsp;·&nbsp; $1,049,000</div>
+    </div>
+    <div class="entry">
+      <div class="title">CAREER: A Science Teacher Education Model for Community-Engaged Literacies (L+STEM)</div>
+      <div class="meta">Principal Investigator &nbsp;·&nbsp; NSF &nbsp;·&nbsp; Awarded to Cal State LA in 2023; rescinded by Trump Administration 2024–2025</div>
+    </div>
+  </section>
+
+  <!-- ── Publications ── -->
+  <section id="publications">
+    <h2>Research &amp; Publications</h2>
+    <p style="font-size:.8rem;color:#666;margin-bottom:1rem;">
+      * peer review &nbsp;|&nbsp; ** with middle/high school student(s) &nbsp;|&nbsp; ^ with teacher(s) &nbsp;|&nbsp; § with undergraduate/graduate student(s)
+    </p>
+
+    <h3>In Preparation</h3>
+    <p class="pub">Nazar, C.R. (in preparation, <em>PMLA</em>). Artificial intelligence as a frontier: Impacting culture and creating feedback.</p>
+    <p class="pub">Nazar, C.R. (in preparation, <em>International Journal of Qualitative Studies in Education</em>). Humanizing methods by de-methodologizing case study research in STEM education.</p>
+    <p class="pub">Nazar, C.R. &amp; Calabrese Barton, A. (in preparation, <em>Journal of Research in Science Teaching</em>). Youth counternarratives of the culture of power in science.</p>
+    <p class="pub">Nazar, C.R. &amp; Calabrese Barton, A. (in preparation, <em>Journal of Teacher Education</em>). Supporting youth-centered, equity-oriented imaginaries in a science elementary methods course.</p>
+    <p class="pub">Nazar, C.R., Calabrese Barton, A. &amp; Tan, E. (in preparation, <em>Journal of Teacher Education</em>). "It's about the process:" Three preservice science teachers enacting their views of youth-centered, equity-oriented science teaching practices.</p>
+
+    <h3>Submitted</h3>
+    <p class="pub">Nazar, C.R. (submitted, Special Issue). Whose Apocalypse? AI's Severance of Scientific Knowledge from Contemplative Scientia.</p>
+    <p class="pub">Nazar, C.R. (submitted, <em>International Journal of Cultural Studies</em>). Nepantla in the Algorithm: A Borderlands Framework for Understanding AI and Scientific Literacy in K-12 Education.</p>
+
+    <h3>Accepted / Published — Journal Articles</h3>
+    <p class="pub">Bowen, C.L., Thompson, L.L., Menezes, G.B., &amp; Nazar, C.R. (2022). Measuring systemic educational wellness using the Eco-STEM educational ecosystem health survey. <em>2023 CoNECD Annual Conference</em>, New Orleans, LA.</p>
+    <p class="pub">Madkins, T.C., &amp; Nazar, C.R. (2022). Theoretical perspectives for developing antiracist teaching dispositions and practices in preservice teacher education. <em>Science Education, 106</em>(5), 1118–1134.</p>
+    <p class="pub">Calabrese Barton, A., Tan, E. &amp; Nazar, C.R. (2022). Youth enacting social-spatial justice in middle school STEM: Advancing justice work in hyperlocal and interscalar ways. <em>Cognition and Instruction</em>, 1–31.</p>
+    <p class="pub">Rodriguez, A.J., Mark, S., &amp; Nazar, C.R. (2022). Gazing inward in support of critical scientific literacy. <em>Journal of Science Teacher Education, 33</em>(2), 125–130.</p>
+    <p class="pub">Marshall, S., Nazar, C.R., Ibourk, A, &amp; McElhaney, K.W. (2022). The role of collective sensemaking and science curriculum development within a research-practice partnership. <em>Science Education, 105</em>(6), 1202–1228.</p>
+    <p class="pub">Mattheis, A., Lovos, J.§, Eichenberger, L.§, Humphrey, C.L.§ &amp; Nazar, C.R. (2022). Queering the common core (and the NGSS): Challenging normativity and embracing possibility. <em>Journal of Homosexuality, 69</em>(12), 2007–2026.</p>
+    <p class="pub">Nazar, C.R., Barton, A.C., Morris, C.**, &amp; Tan, E. (2019). Critically engaging engineering in place by localizing counternarratives in engineering design. <em>Science Education, 103</em>(3), 638–664.</p>
+    <p class="pub">Schenkel, K., Calabrese Barton, A., Tan, E., Nazar, C.R., &amp; Gonzalez Flores, M.D. (2019). Framing equity through a closer examination of critical science agency. <em>Cultural Studies of Science Education 14</em>, 309–325.</p>
+    <p class="pub">Ibourk, A., Williams, M., Opperman, A., Cisterna, D., Nazar, C.R., Xie, Y. (2018). Young students' understanding of the relationship between inheritance and variation of traits using structural equation modeling. <em>Science Education; 102</em>: 1201–1238.</p>
+
+    <h3>Book &amp; Handbook Chapters</h3>
+    <p class="pub">Nazar, C.R. &amp; Calabrese Barton, A. (2022). Learning from youth lives: Towards a justice-oriented science teacher education. <em>International Handbook of Research on Multicultural Science Education</em>. Springer.</p>
+    <p class="pub">Fontanella-Nothom, O. &amp; Nazar, C.R. (2021). Radical dreams of hope, liberation, and futures in teacher education. In <em>Radically Dreaming: Illuminating Freirean Praxis and Emerging from Dark Times</em>. Dio Press.</p>
+    <p class="pub">Nazar, C.R., Calabrese Barton, A. &amp; Rollins, A. (2017). Faith's fancy hat: Engineering with the community. <em>Reframing Science Teaching and Learning</em>, 97–114. Routledge.</p>
+
+    <h3>Conference Proceedings</h3>
+    <p class="pub">Heubach, S., Nazar, C.R., et al. (2022). Eco-STEM: Transforming STEM education using an asset-based ecosystem model. <em>2022 ASEE Annual Conference &amp; Exposition</em>.</p>
+    <p class="pub">Bowen, C., Thompson, L., Menezes, G. &amp; Nazar, C.R. (2022). Work-in-progress: Measuring systemic educational wellness using the Eco-STEM educational ecosystem health survey. <em>2022 ASEE Annual Conference &amp; Exposition</em>.</p>
+
+    <h3>Other Publications</h3>
+    <p class="pub">Nazar, C.R. &amp; Calabrese Barton, A. (2020). Centering youth lives in science teacher education. <em>ARISE Blog</em>, American Association for the Advancement of Science.</p>
+    <p class="pub">Nazar, C.R. (2017). Preparing STEM teachers to meet diverse student needs. <em>100kin10 Commissioned White Paper</em>.</p>
+    <p class="pub">Nazar, C.R. (2016, November). Youth as active agents in conscientizing grain sizes of science teaching and learning. <em>Invincibility Lab</em>.</p>
+    <p class="pub">Nazar, C.R. &amp; Bonnette, R. (2016, May). Making the shift: Changing the Conversation around "Equity in Making." <em>Center for Advancement of Informal Science Education</em>.</p>
+    <p class="pub">Nazar, C.R. (2016, March). Youth as Counter-storytellers: Using multimodality to discuss meaningful science and engineering learning. <em>Invincibility Lab</em>.</p>
+    <p class="pub">Nazar, C.R., Fall, Grace, &amp; GET City Youth (2015, May). GETCity Youth re-inventing community engagement. <em>Green &amp; Write MSU College of Education Blog</em>.</p>
+    <p class="pub">Lederle, C., Nazar, C.R., &amp; Gonzalez, M. (2011, September). The Huexotzinco codex: Taxes and turkeys from sixteenth-century Mexico. <em>Library of Congress/Teachers Blog</em>.</p>
+  </section>
+
+  <!-- ── Presentations ── -->
+  <section id="presentations">
+    <h2>Conference Presentations</h2>
+
+    <h3>State, National &amp; International (Peer Reviewed, selected)</h3>
+    <ul class="plain-list">
+      <li>Ritchey III, G.L., Nazar, C.R., &amp; Duncan, T. (April 2026). Lost in Translation: Celtic Myth and the Persona Series. <em>High Impact Practices Student Showcase Spring 2026</em>. Orlando, FL.</li>
+      <li>Nazar, C.R. (March 2026). The Real Apocalypse: When Students Stop Looking at the World. <em>2026 Student Research Week</em>, Orlando, FL.</li>
+      <li>Nazar, C.R. et al. (June 2023). Work in Progress: Developing a Leadership Community of Practice Towards a Healthy Educational Ecosystem. <em>ASEE Annual Conference</em>, Baltimore, MD.</li>
+      <li>Menezes, G.B. et al. (2022). Eco-STEM: Transforming STEM Education using an Asset-based Ecosystem Model. <em>ASEE</em>.</li>
+      <li>Nazar, C.R. (2021, March). Perspectivization: Empowering, Evoking and Revolutionizing Science Teacher Education for Social Justice. <em>NARST</em>.</li>
+      <li>Nazar, C.R. et al. (2021, April). Preservice Teachers' Unpacking Community Cultural Wealth with 5th Graders Learning about COVID-19. <em>AERA</em>.</li>
+      <li>Nazar, C.R. &amp; Martinez Hinestroza, J.M. (2021, April). Embracing our Responsibility in Changing Times: Perspectivization as Critical Growth in Science and Mathematics Teacher Education. <em>AERA</em>.</li>
+      <li>Nazar, C.R. (2020, January). Centering Critical Race Epistemology in Science Teacher Education. <em>CCTE Annual Meeting</em>, San Diego, CA.</li>
+      <li>Nazar, C.R. (2019, October). Critical Race Theory in Science Education. <em>SEEDS Annual Conference</em>, Norfolk, VA.</li>
+      <li>Nazar, C.R. &amp; Calabrese Barton, A. (2018, August). Learning to Enact Youth-Centered Practices in an NGSS-aligned Middle Grades Curriculum. <em>CA-STEAM Annual Conference</em>, Long Beach, CA.</li>
+      <li>Nazar, C.R. et al. (2018, March). NSTA Justice-Oriented Approaches and Strategies in STEM Education. <em>National Science Teachers Association</em>, Atlanta, GA.</li>
+      <li>Nazar, C.R. et al. (2017, April). Expansive learning through counternarratives in co-constructed multimodal cases. <em>AERA Annual Meeting</em>, San Antonio, TX.</li>
+      <li>Nazar, C.R. et al. (2017, April). Co-creating methodologies of hope and care: Decolonizing research in science and engineering education. <em>AERA</em>, San Antonio, TX.</li>
+      <li>Nazar, C.R. et al. (2016, April). Learning to Engage: Scientists, Engineers, Educators, and Youth in Learning Collaborations. <em>AERA</em>, Washington, D.C.</li>
+      <li>Nazar, C.R. et al. (2015, April). Hybrid Practices and Developing Expertise in Engineering Among Middle School Students. <em>AERA</em>, Chicago, IL.</li>
+      <li>Nazar, C.R. (2010). Constructivist Teaching and Learning in the Ohio Mathematics Coaching Program. <em>National Conferences on Undergraduate Research</em>, University of Montana.</li>
+    </ul>
+
+    <h3>Invited Presentations &amp; Colloquia</h3>
+    <ul class="plain-list">
+      <li>Nazar, C.R. (2020, February). Youth as Teacher Educators — AACTE Dissertation of the Year Award Acceptance Speech. AACTE Annual Reception, Atlanta, GA.</li>
+      <li>Nazar, C.R. (2019, November). TEACHLive and Approximations of Practice. Cal State LA, Los Angeles, CA.</li>
+      <li>Nazar, C.R. (2017, March). How to Get into Graduate School. McNair Program, UCF, Orlando, FL.</li>
+      <li>Nazar, C.R. (December 2016). Engineering with Community in STEM education. AGEP Chalk Talk, East Lansing, MI.</li>
+      <li>Nazar, C.R. (January 2016). Work in Progress: Youth Co-Created Multimodal Case Studies of Engineering Work over Time. UCF Education Lecture Series, Orlando, FL.</li>
+    </ul>
+  </section>
+
+  <!-- ── Research Experience ── -->
+  <section id="research">
+    <h2>Research Experience</h2>
+
+    <div class="entry">
+      <div class="title">Graduate Research Associate — Center for Humanities and Digital Research (CHDR)</div>
+      <div class="meta">University of Central Florida, College of Arts and Humanities &nbsp;·&nbsp; August 2025–Present</div>
+      <p>Organizing and inventorying materials for podcasts and video-based design; designing digital art and covers for the Florida Historical Society; working with GIS and digital mapping technologies through the Artists in Cuba Project; developing manuscripts for Digital Humanities journals.</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Consultant — Metropolitan Center for Research on Equity and the Transformation of Schools</div>
+      <div class="meta">New York University (W.K. Kellogg Foundation) &nbsp;·&nbsp; March 2016–August 2018</div>
+      <p>Collaborated with MSU on a youth co-researcher project examining support systems youth recognize as they prepare for post-secondary education or workforce development in Battle Creek, Michigan.</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Graduate Research Assistant — Invincibility Lab | I-Engineering (NSF DRL #1502755)</div>
+      <div class="meta">Michigan State University &nbsp;·&nbsp; August 2015–August 2018 &nbsp;·&nbsp; $1,307,460</div>
+      <p>Co-developed engineering curriculum for middle grades students focused on sustainable communities; led critical ethnography data collection; co-designed youth counternarrative assessments; facilitated professional development for teachers.</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Graduate Research Assistant — Invincibility Lab | Making 4 Change (NSF DRL #1421116)</div>
+      <div class="meta">Michigan State University &nbsp;·&nbsp; December 2013–November 2017 &nbsp;·&nbsp; $299,999</div>
+      <p>Co-coordinator of year-round after-school makerspace program for middle school youth; tutored seven students in engineering design projects; conducted longitudinal multimodal case study research on youth identity development and epistemic agency in STEM.</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Graduate Research Assistant — STEM Genetics (NSF DRL #1119055)</div>
+      <div class="meta">Michigan State University &nbsp;·&nbsp; August 2013–August 2016 &nbsp;·&nbsp; $2,348,184</div>
+      <p>Co-led 9th grade genetics education curriculum development using the Web-Based Inquiry Learning Environment (WISE).</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Undergraduate Research Assistant — UCF TRiO Programs (Upward Bound &amp; PRIME STEM)</div>
+      <div class="meta">University of Central Florida &nbsp;·&nbsp; December 2008–May 2011</div>
+      <p>Conceptualized a framework for high school STEM recruitment and undergraduate STEM retention; helped secure $1M U.S. Dept. of Education grant for PRIME STEM student support services.</p>
+    </div>
+
+    <div class="entry">
+      <div class="title">Undergraduate Research Assistant — Ohio Mathematics Coaching Program (CIC SROP)</div>
+      <div class="meta">The Ohio State University &nbsp;·&nbsp; June 2009–August 2009</div>
+      <p>Co-developed a conceptual framework to support constructivist mathematics instruction under mentorship of Dr. Patricia Brosnan.</p>
+    </div>
+  </section>
+
+  <!-- ── Curriculum Design ── -->
+  <section id="curriculum">
+    <h2>Completed Curriculum Design</h2>
+    <ul class="plain-list">
+      <li>UCP of Central Florida STEM Summer Camp (2025) — Four-week STEM camp covering cooking, engineering design, robotics, and game design.</li>
+      <li>I-Engineering: Tools for teaching and learning engineering practices (2017) — Michigan State University, NSF DRL #1502755.</li>
+      <li>STEM Genetics: How can we use genetics to create sugary corn from starchy corn? (2015) — Web-Based Science Inquiry Environment, MSU, NSF DRL #1119055.</li>
+    </ul>
+  </section>
+
+  <!-- ── Editorial ── -->
+  <section id="editorial">
+    <h2>Editorial Experience</h2>
+    <ul class="plain-list">
+      <li><em>Wednesday Trash Day</em> by Mary Kate Coleman (2025) — Production Assistant</li>
+    </ul>
+  </section>
+
+  <!-- ── Service & Outreach ── -->
+  <section id="service">
+    <h2>Outreach &amp; Service</h2>
+
+    <h3>Reviewing — Journals &amp; National Organizations (2018–present)</h3>
+    <ul class="plain-list">
+      <li>Reviewer, Electronic Literature Organization (ELO) 2026</li>
+      <li>Reviewer, NSF (ITEST, DRK12, CAREER) 2018, 2019, 2021</li>
+      <li>Reviewer, Journal of Research in Science Teaching 2022</li>
+      <li>Reviewer, Journal of the Learning Sciences 2020</li>
+      <li>Reviewer, Science Education 2018, 2019, 2020, 2021, 2022</li>
+      <li>Reviewer, Journal of Pre-college Engineering Education 2018, 2020</li>
+      <li>Reviewer, Equity and Excellence in Education 2021</li>
+      <li>Reviewer, AERA Divisions K &amp; G, Science Teaching and Learning SIG 2013–2022</li>
+      <li>Reviewer, NARST 2013–2022</li>
+    </ul>
+
+    <h3>University of Central Florida (2025–present)</h3>
+    <ul class="plain-list">
+      <li>Member, Texts &amp; Technology Student Organization</li>
+      <li>Member, Ronald E. McNair Postbaccalaureate Achievement Program</li>
+    </ul>
+
+    <h3>California State University, Los Angeles (2018–2023)</h3>
+    <ul class="plain-list">
+      <li>Elected University Senator, Charter College of Education (2019–2023)</li>
+      <li>Elected, University Student Policy Committee (2019–2022)</li>
+      <li>Faculty Reviewer, University Undergraduate Research Symposium (2018–2022)</li>
+      <li>Reviewer, Wilson C. Riles Education Scholarship (2020)</li>
+      <li>Committee on Equity and Equity Mindedness (2020–2021)</li>
+      <li>Chair, Student Development Committee (2018–2023)</li>
+      <li>Coordinator, Single Subject Credential (Fall 2019–2023)</li>
+      <li>Chair, Directed Teaching Committee (Fall 2022–2023)</li>
+      <li>Course Coordinator, EDEL 4180, EDSE 5101, EDSE 4212C (2018–2023)</li>
+    </ul>
+
+    <h3>External Service</h3>
+    <ul class="plain-list">
+      <li>Campus Catholic Ministry, University of Central Florida (2025–present)</li>
+      <li>City Terrace Elementary (2021–2023)</li>
+      <li>Erwin Elementary School (2021–2023)</li>
+      <li>A Place Called Home, South Central Los Angeles (2018–2019)</li>
+      <li>Believe in You Non-profit (2018–2021)</li>
+      <li>Social Action Committee, Science Educators for Equity, Diversity and Social Justice (SEEDS) (2019–2022)</li>
+    </ul>
+  </section>
+
+  <!-- ── Consulting ── -->
+  <section id="consulting">
+    <h2>Professional Consulting</h2>
+    <ul class="plain-list">
+      <li>Rio Hondo Community College — Science Education, Identity and Agency presentations for pre-service teachers during teacher appreciation week (2019–2020)</li>
+    </ul>
+  </section>
+
+  <!-- ── Memberships ── -->
+  <section id="memberships">
+    <h2>Associations &amp; Memberships</h2>
+    <div class="pill-row">
+      <span class="pill">ASTE</span>
+      <span class="pill">AERA</span>
+      <span class="pill">NARST</span>
+      <span class="pill">NSTA</span>
+      <span class="pill">FSTA</span>
+      <span class="pill">MSTA</span>
+      <span class="pill">CSTA</span>
+      <span class="pill">CCTE</span>
+      <span class="pill">Kappa Delta Pi</span>
+      <span class="pill">Pi Lambda Theta</span>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -75% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
